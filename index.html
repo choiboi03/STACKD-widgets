@@ -788,7 +788,7 @@ function renderWidgets(filter) {
         <div class="card-desc">${w.desc}</div>
         <div class="card-actions">
           <button class="card-btn" onclick="previewWidget('${w.url}', '${w.name}')">Preview</button>
-          <button class="card-btn add" onclick="addWidget('${w.url}', '${w.name}')">+ Add to STACKD</button>
+          <button class="card-btn add" onclick="addWidget('${w.url}', '${w.name}', '${w.emoji}', '${w.cat}')">+ Add to STACKD</button>
         </div>
       </div>
     </div>
@@ -802,12 +802,17 @@ function filterWidgets(cat, btn) {
   renderWidgets(cat);
 }
 
-function addWidget(url, name) {
-  document.getElementById('modal-title').textContent = `ADD ${name.toUpperCase()}`;
-  document.getElementById('modal-url').textContent = url;
-  document.getElementById('modal').classList.add('active');
+function addWidget(url, name, emoji, cat) {
+  const base = 'https://vibestackd.com';
+  const params = new URLSearchParams({
+    add: url,
+    name: name,
+    type: 'live',
+    emoji: emoji || '🧩',
+    cat: cat || 'WIDGET'
+  });
+  window.open(`${base}?${params.toString()}`, '_blank');
 }
-
 function previewWidget(url, name) {
   window.open(url, '_blank');
 }
